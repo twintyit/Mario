@@ -8,11 +8,9 @@ public class TeleportPlayer : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("X1"))
+        if (collision.CompareTag("X1") | collision.CompareTag("Enemy"))
         {
-
-            transform.position = teleportDestination.position;
-            //Destroy(gameObject);          
+            transform.position = teleportDestination.position;                     
         }
     }  
 }

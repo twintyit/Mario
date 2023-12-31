@@ -7,11 +7,19 @@ public class SoundsPlayer : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip jumpSound;
     public AudioClip walkSound;
+    public AudioClip enemySound;
 
     private bool isJump = false;
-    void Start()
+    private bool isEnemy = false;
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-       
+        if (collision.CompareTag("Enemy") | collision.CompareTag("X1"))
+        {
+            isEnemy = true;
+            audioSource.PlayOneShot(enemySound);
+            isEnemy = false;
+        }
     }
 
     void Update()
@@ -30,7 +38,7 @@ public class SoundsPlayer : MonoBehaviour
                 audioSource.PlayOneShot(walkSound);
             }
         }
-        else if(!isJump && (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0))
+        else if((!isEnemy || !isJump) && (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0))
         {
             if (!audioSource.isPlaying)
             {
