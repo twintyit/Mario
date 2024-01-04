@@ -8,6 +8,7 @@ public class SoundsPlayer : MonoBehaviour
     public AudioClip jumpSound;
     public AudioClip walkSound;
     public AudioClip enemySound;
+    public AudioClip artefactSound;
 
     private bool isJump = false;
     private bool isEnemy = false;
@@ -19,6 +20,10 @@ public class SoundsPlayer : MonoBehaviour
             isEnemy = true;
             audioSource.PlayOneShot(enemySound);
             isEnemy = false;
+        }
+        else if(collision.CompareTag("Artefact"))
+        {
+            audioSource.PlayOneShot(artefactSound);
         }
     }
 
