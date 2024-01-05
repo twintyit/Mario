@@ -10,6 +10,12 @@ public class Move1 : MonoBehaviour
     private Rigidbody2D rb;
     public Vector2 moveVector;
     public Animator anim;
+    public bool onGround = false;
+    public Transform GroundCheck;
+    public float checkRadius = 0.5f;
+    public LayerMask Ground;
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -18,12 +24,10 @@ public class Move1 : MonoBehaviour
 
     void Update()
     {
+        CheckingGround();
         Move();
-
-        if (Input.GetButtonDown("Jump") && Mathf.Abs(rb.velocity.y)< 1f)
-        {
-                Jump();
-        }
+        Jump();
+        
     }
 
     void Move()
@@ -47,6 +51,15 @@ public class Move1 : MonoBehaviour
 
     void Jump()
     {
-        rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+        if (Input.GetButtonDown("Jump") && onGround) 
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+    }
+
+    void CheckingGround()
+    {
+        onGround = Physics2D.OverlapCircle(GroundCheck.position, checkRadius, Ground);
+        anim.SetBool("onGround", onGround);
     }
 }
