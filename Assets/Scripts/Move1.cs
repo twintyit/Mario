@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Move1 : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class Move1 : MonoBehaviour
     public float checkRadius = 0.5f;
     public LayerMask Ground;
 
-    public float climbSpeed = 3f;
+    public float climbSpeed = 10f;
     private bool isOnLadder = false;
 
 
@@ -28,12 +29,13 @@ public class Move1 : MonoBehaviour
     void Update()
     {
         CheckingGround();
-        //CheckForLadder();
-        //if (isOnLadder)
-        //{
-        //    float verticalInput = Input.GetAxis("Vertical");
-        //    ClimbLadder(verticalInput);
-        //}
+        CheckForLadder();
+
+        if (isOnLadder)
+        {
+            float verticalInput = Input.GetAxis("Vertical");
+            ClimbLadder(verticalInput);
+        }
         Move();
         Jump();
     }
@@ -79,13 +81,13 @@ public class Move1 : MonoBehaviour
 
     void ClimbLadder(float input)
     {
-        float climbY = input * climbSpeed * Time.deltaTime;
-        rb.velocity = new Vector2(0, climbY);
-
-        if (onGround && Input.GetButtonDown("Jump")) 
+        if (input != 0) 
+        {
+           rb.velocity = new Vector2(rb.velocity.x, input * climbSpeed * 3);           
+        }
+        else if (Input.GetButtonDown("Jump"))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            isOnLadder = false;
         }
     }
 }
