@@ -21,7 +21,7 @@ public class SoundsPlayer : MonoBehaviour
             audioSource.PlayOneShot(enemySound);
             isEnemy = false;
         }
-        else if(collision.CompareTag("Artefact"))
+        else if(collision.CompareTag("Artefact") || collision.CompareTag("Key"))
         {
             audioSource.PlayOneShot(artefactSound);
         }

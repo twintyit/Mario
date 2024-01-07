@@ -9,26 +9,30 @@ public class GameControll : MonoBehaviour
     public Text artefactText;
     public Text keyText;
     public GameObject[] artefacts;
-
-    int life = 10;
+    public GameObject keyObj;
+    
     int key = 0;
     int artefact = 0;
+
+    int life = 10;
     public int Life 
     {
         get { return life; }
     }
 
+
     private void Start()
     {
+        keyObj.SetActive(false);
         lifeText.text = life.ToString();
         artefactText.text = artefact + "/" + artefacts.Length;
         keyText.text = key + "/" + 1;
     }
-
     public void UpArtefact()
     {
         artefact++;
         ShowArtefact();
+        CheckKey();
     }
     private void ShowArtefact()
     {
@@ -51,5 +55,13 @@ public class GameControll : MonoBehaviour
     private void ShowLife()
     {
         lifeText.text = life.ToString();
+    }
+
+    private void CheckKey()
+    {
+        if(artefact == artefacts.Length)
+        {
+            keyObj.SetActive(true);
+        }
     }
 }

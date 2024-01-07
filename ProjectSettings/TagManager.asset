@@ -12,6 +12,7 @@ TagManager:
   - Enemy
   - PlayerTrigger
   - Artefact
+  - Key
   layers:
   - Default
   - TransparentFX
