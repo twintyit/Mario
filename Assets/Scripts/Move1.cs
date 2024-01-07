@@ -15,6 +15,9 @@ public class Move1 : MonoBehaviour
     public float checkRadius = 0.5f;
     public LayerMask Ground;
 
+    public float climbSpeed = 3f;
+    private bool isOnLadder = false;
+
 
     void Start()
     {
@@ -25,9 +28,14 @@ public class Move1 : MonoBehaviour
     void Update()
     {
         CheckingGround();
+        //CheckForLadder();
+        //if (isOnLadder)
+        //{
+        //    float verticalInput = Input.GetAxis("Vertical");
+        //    ClimbLadder(verticalInput);
+        //}
         Move();
         Jump();
-        
     }
 
     void Move()
@@ -61,5 +69,23 @@ public class Move1 : MonoBehaviour
     {
         onGround = Physics2D.OverlapCircle(GroundCheck.position, checkRadius, Ground);
         anim.SetBool("onGround", onGround);
+    }
+
+    void CheckForLadder()
+    {   
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 1, LayerMask.GetMask("Ladder"));
+        isOnLadder = hit.collider != null;
+    }
+
+    void ClimbLadder(float input)
+    {
+        float climbY = input * climbSpeed * Time.deltaTime;
+        rb.velocity = new Vector2(0, climbY);
+
+        if (onGround && Input.GetButtonDown("Jump")) 
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            isOnLadder = false;
+        }
     }
 }
