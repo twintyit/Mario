@@ -13489,7 +13489,7 @@ GameObject:
   - component: {fileID: 6687243033641235294}
   - component: {fileID: 6687243033641235293}
   - component: {fileID: 6687243033641235296}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FlyPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
